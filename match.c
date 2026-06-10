@@ -62,19 +62,22 @@ int matchstar(char c, char *regex, char *text)
 }
 
 /* Looks for c+regex at the beginning of text. */
-int matchplus(char c, char* regex, char* text){
-        return 0;
+int matchplus(char c, char *regex, char *text)
+{
+	return 0;
 }
 
 /* Looks for c?regex at the beginning of text. */
-int matchqmrk(char c, char* regex, char* text){
-        return 0;
+int matchqmrk(char c, char *regex, char *text)
+{
+	return 0;
 }
 
 int main(int argc, char **argv)
 {
 	if (argc != 3) {
-		puts("Usage: match <regex> <text>\nDon't forget to escape globs.");
+		puts("Usage: match <regex> <text>\n"
+		     "Don't forget to escape globs.");
 		return 1;
 	}
 	if (match(argv[1], argv[2]) == 1)
