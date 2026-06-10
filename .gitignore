@@ -1,4 +1,6 @@
 *
-!match.c
 !match.h
+!match.c
+!test.c
 !.gitignore
+!Makefile
