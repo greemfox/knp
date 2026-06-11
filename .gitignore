@@ -1,6 +1,3 @@
-*
-!match.h
-!match.c
-!test.c
-!.gitignore
-!Makefile
+.clang-format
+compile_flags.txt
+bin
