@@ -15,27 +15,14 @@ Testificate tests[] = {
 
 int test(char *regex, char *text, int expected)
 {
-	char *yayornay = expected ? "..."
-				  : "\e[0;30m"
-				    "not"
-				    "\e[0m";
+	char *yayornay = expected ? "..." : BLACK "not" COLOR_RESET;
 	int pad = 6;
-	printf("\e[0;36m"
-	       "%-*s"
-	       "\e[0m"
-	       "should %s match"
-	       "\e[0;34m"
-	       "%*s"
-	       "\e[0m",
+	printf(CYAN "%-*s" COLOR_RESET "should %s match" BLUE "%*s" COLOR_RESET,
 	       pad, regex, yayornay, pad, text);
 	if (match(regex, text) == expected) {
-		puts("\e[1;32m"
-		     "\tPassed!"
-		     "\e[0m");
+		puts(BOLD_GREEN "\tPassed!" COLOR_RESET);
 	} else {
-		puts("\e[1;31m"
-		     "\tFailed!"
-		     "\e[0m");
+		puts(BOLD_RED "\tFailed!" COLOR_RESET);
 		return 0;
 	}
 	return 1;
