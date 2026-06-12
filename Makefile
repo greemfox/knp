@@ -1,4 +1,4 @@
-СС=gcc
+CC=gcc
 CFLAGS=-O2
 BUILDDIR=bin
 
