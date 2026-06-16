@@ -66,5 +66,9 @@ int matchplus(char c, char *regex, char *text)
 /* Looks for c?regex at the beginning of text. */
 int matchqmrk(char c, char *regex, char *text)
 {
+	if (matchhere(regex, text) ||
+	    (*text == c && matchhere(regex, text + 1))) {
+		return 1;
+	}
 	return 0;
 }
