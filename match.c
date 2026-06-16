@@ -11,7 +11,7 @@
 
 /* Extensions:
  * [x]  '+' matches 1 or more occurrences of the previous char
- * [ ]  '?' matches 0 or 1 occurrence of the previous char
+ * [x]  '?' matches 0 or 1 occurrence of the previous char
  * [ ] '\d' matches a digit
  * [ ] '\D' matches a nondigit
  * [ ] '\s' matches whitespace

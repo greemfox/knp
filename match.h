@@ -3,6 +3,8 @@ int matchhere(char *, char *);
 int matchstar(char, char *, char *);
 int matchplus(char, char *, char *);
 int matchqmrk(char, char *, char *);
+int matchdigit(char, char *, char *);
+int matchspace(char, char *, char *);
 
 /* Looks for a match anywhere within text. */
 int match(char *regex, char *text)
