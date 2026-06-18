@@ -3,32 +3,33 @@
 #include <stdio.h>
 
 Testificate tests[] = {
-    {"a*", "", 1},	 {"a*", "a", 1},      {"a*", "aaa", 1},
-    {"a*b", "b", 1},	 {"a*b", "ab", 1},    {"a*b", "aab", 1},
-    {"ba*", "b", 1},	 {"ba*", "ba", 1},    {"ba*", "baa", 1},
-    {"a*b", "a", 0},	 {"a*b", "tasty", 0}, {"a*b", "test", 0},
-    {"a+", "a", 1},	 {"a+", "aaa", 1},    {"a+b", "ab", 1},
-    {"a+b", "aab", 1},	 {"ba+", "ba", 1},    {"ba+", "baa", 1},
-    {"a+", "", 0},	 {"a+", "b", 0},      {"a+b", "b", 0},
-    {"a+b", "a", 0},	 {"ba+", "b", 0},     {"ba+", "a", 0},
-    {"a?b", "ab", 1},	 {"a?b", "b", 1},     {"ba?b", "bb", 1},
-    {"baa?", "ba", 1},	 {"baa?", "baa", 1},  {"a?bb", "bb", 1},
-    {"ba?b", "baab", 0}, {"baaa?", "ba", 0},  {"aba?", "ba", 0},
+    {"a*", "", true},	    {"a*", "a", true},	     {"a*", "aaa", true},
+    {"a*b", "b", true},	    {"a*b", "ab", true},     {"a*b", "aab", true},
+    {"ba*", "b", true},	    {"ba*", "ba", true},     {"ba*", "baa", true},
+    {"a*b", "a", false},    {"a*b", "tasty", false}, {"a*b", "test", false},
+    {"a+", "a", true},	    {"a+", "aaa", true},     {"a+b", "ab", true},
+    {"a+b", "aab", true},   {"ba+", "ba", true},     {"ba+", "baa", true},
+    {"a+", "", false},	    {"a+", "b", false},	     {"a+b", "b", false},
+    {"a+b", "a", false},    {"ba+", "b", false},     {"ba+", "a", false},
+    {"a?b", "ab", true},    {"a?b", "b", true},	     {"ba?b", "bab", true},
+    {"ba?b", "bb", true},   {"baa?", "ba", true},    {"baa?", "baa", true},
+    {"a?bb", "bb", true},   {"a?bb", "abb", true},   {"ba?b", "baab", false},
+    {"baaa?", "ba", false}, {"aba?", "ba", false},
 };
 
-int test(char *regex, char *text, int expected)
+bool test(char *regex, char *text, int expected)
 {
-	char *yayornay = expected ? "..." : BLACK "not" COLOR_RESET;
-	int pad = 6;
+	char *yayornay = expected ? "   " : BLACK "not" COLOR_RESET;
+	int padding = 6;
 	printf(CYAN "%-*s" COLOR_RESET "should %s match" BLUE "%*s" COLOR_RESET,
-	       pad, regex, yayornay, pad, text);
+	       padding, regex, yayornay, padding, text);
 	if (match(regex, text) == expected) {
 		puts(BOLD_GREEN "\tPassed!" COLOR_RESET);
 	} else {
 		puts(BOLD_RED "\tFailed!" COLOR_RESET);
-		return 0;
+		return false;
 	}
-	return 1;
+	return true;
 }
 
 int main(void)

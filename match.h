@@ -1,30 +1,30 @@
-int match(char *, char *);
-int matchhere(char *, char *);
-int matchstar(char, char *, char *);
-int matchplus(char, char *, char *);
-int matchqmrk(char, char *, char *);
-int matchdigit(char, char *, char *);
-int matchspace(char, char *, char *);
+bool match      (char *, char *);
+bool matchhere  (char *, char *);
+bool matchstar  (char, char *, char *);
+bool matchplus  (char, char *, char *);
+bool matchqmark (char, char *, char *);
+bool matchdigit (char *, char *);
+bool matchspace (char *, char *);
 
 /* Looks for a match anywhere within text. */
-int match(char *regex, char *text)
+bool match(char *regex, char *text)
 {
 	if (regex[0] == '^') {
 		matchhere(regex + 1, text);
 	}
 	do {
 		if (matchhere(regex, text)) {
-			return 1;
+			return true;
 		}
 	} while (*text++ != '\0');
-	return 0;
+	return false;
 }
 
 /* Looks for a match at the beginning of text. */
-int matchhere(char *regex, char *text)
+bool matchhere(char *regex, char *text)
 {
 	if (regex[0] == '\0') {
-		return 1;
+		return true;
 	}
 	if (regex[0] == '$' && regex[1] == '\0') {
 		return *text == '\0';
@@ -35,42 +35,54 @@ int matchhere(char *regex, char *text)
 	case '+':
 		return matchplus(regex[0], regex + 2, text);
 	case '?':
-		return matchqmrk(regex[0], regex + 2, text);
+		return matchqmark(regex[0], regex + 2, text);
 	}
 	if (*text != '\0' && (regex[0] == '.' || regex[0] == text[0])) {
 		return matchhere(regex + 1, text + 1);
 	}
-	return 0;
+	return false;
 }
 
 /* Looks for c*regex at the beginning of text. */
-int matchstar(char c, char *regex, char *text)
+bool matchstar(char c, char *regex, char *text)
 {
 	do {
 		if (matchhere(regex, text)) {
-			return 1;
+			return true;
 		}
 	} while (*text != '\0' && (*text++ == c || c == '.'));
-	return 0;
+	return false;
 }
 
 /* Looks for c+regex at the beginning of text. */
-int matchplus(char c, char *regex, char *text)
+bool matchplus(char c, char *regex, char *text)
 {
 	while (*text != '\0' && (*text++ == c || c == '.')) {
 		if (matchhere(regex, text)) {
-			return 1;
+			return true;
 		}
 	}
-	return 0;
+	return false;
 }
 
 /* Looks for c?regex at the beginning of text. */
-int matchqmrk(char c, char *regex, char *text)
+bool matchqmark(char c, char *regex, char *text)
 {
 	if (matchhere(regex, text) ||
 	    (*text == c && matchhere(regex, text + 1))) {
-		return 1;
+		return true;
 	}
-	return 0;
+	return false;
+}
+
+/* Looks for a digit then regex at the beginning of text. */
+bool matchdigit(char *regex, char *text)
+{
+	return false;
+}
+
+/* Looks for whitespace then regex at the beginning of text. */
+bool matchspace(char *regex, char *text)
+{
+	return false;
 }
