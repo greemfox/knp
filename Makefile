@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-O2
+CFLAGS=-O2 -std=c23
 BUILDDIR=bin
 
 build: match.c

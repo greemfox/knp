@@ -14,19 +14,22 @@ Testificate tests[] = {
     {"a?b", "ab", true},    {"a?b", "b", true},	     {"ba?b", "bab", true},
     {"ba?b", "bb", true},   {"baa?", "ba", true},    {"baa?", "baa", true},
     {"a?bb", "bb", true},   {"a?bb", "abb", true},   {"ba?b", "baab", false},
-    {"baaa?", "ba", false}, {"aba?", "ba", false},
+    {"baaa?", "ba", false}, {"aba?", "ba", false},   {"/$", "$", true},
+    {"/*", "*", true},	    {"/+", "+", true},	     {"/?", "?", true},
+    {"/$$", "a$", true},    {"a/+*b", "ab", true},   {"a/++b", "a+++b", true},
+    {"/a", "a", false},	    {"/$$", "$a", false},
 };
 
 bool test(char *regex, char *text, int expected)
 {
-	char *yayornay = expected ? "   " : BLACK "not" COLOR_RESET;
+	char *yayornay = expected ? "   " : BLACK "not" RESET;
 	int padding = 6;
-	printf(CYAN "%-*s" COLOR_RESET "should %s match" BLUE "%*s" COLOR_RESET,
-	       padding, regex, yayornay, padding, text);
+	printf(CYAN "%-*s" RESET "should %s match" BLUE "%*s" RESET, padding,
+	       regex, yayornay, padding, text);
 	if (match(regex, text) == expected) {
-		puts(BOLD_GREEN "\tPassed!" COLOR_RESET);
+		puts(BOLD_GREEN " Passed!" RESET);
 	} else {
-		puts(BOLD_RED "\tFailed!" COLOR_RESET);
+		puts(BOLD_RED " Failed!" RESET);
 		return false;
 	}
 	return true;

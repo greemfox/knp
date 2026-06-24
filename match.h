@@ -1,10 +1,9 @@
-bool match      (char *, char *);
-bool matchhere  (char *, char *);
-bool matchstar  (char, char *, char *);
-bool matchplus  (char, char *, char *);
-bool matchqmark (char, char *, char *);
-bool matchdigit (char *, char *);
-bool matchspace (char *, char *);
+bool match(char *, char *);
+bool matchhere(char *, char *);
+bool matchstar(char, char *, char *);
+bool matchplus(char, char *, char *);
+bool matchqmark(char, char *, char *);
+bool matchslash(char *, char *);
 
 /* Looks for a match anywhere within text. */
 bool match(char *regex, char *text)
@@ -28,6 +27,9 @@ bool matchhere(char *regex, char *text)
 	}
 	if (regex[0] == '$' && regex[1] == '\0') {
 		return *text == '\0';
+	}
+	if (regex[0] == '/' && regex[1] != '\0') {
+		return matchslash(regex + 1, text);
 	}
 	switch (regex[1]) {
 	case '*':
@@ -75,14 +77,16 @@ bool matchqmark(char c, char *regex, char *text)
 	return false;
 }
 
-/* Looks for a digit then regex at the beginning of text. */
-bool matchdigit(char *regex, char *text)
+/* Handles escapement. */
+bool matchslash(char *regex, char *text)
 {
-	return false;
-}
-
-/* Looks for whitespace then regex at the beginning of text. */
-bool matchspace(char *regex, char *text)
-{
+	switch (regex[0]) {
+	case '$':
+	case '*':
+	case '+':
+	case '?':
+	case '/':
+		return matchhere(regex, text);
+	}
 	return false;
 }

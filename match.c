@@ -12,11 +12,11 @@
 /* Extensions:
  * [x]  '+' matches 1 or more occurrences of the previous char
  * [x]  '?' matches 0 or 1 occurrence of the previous char
+ * [x]  '\' quotes the following metacharacter
  * [ ] '\d' matches a digit
  * [ ] '\D' matches a nondigit
  * [ ] '\s' matches whitespace
  * [ ] '\S' matches non-whitespace
- * [ ]  '\' quotes the following metacharacter
  */
 
 int main(int argc, char **argv)
