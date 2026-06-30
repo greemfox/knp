@@ -8,7 +8,7 @@
 #define RESET "\e[0m"
 
 typedef struct {
-	char *r;
-	char *t;
-	int exp;
+	char *re;
+	char *text;
+	bool expected;
 } Testificate;

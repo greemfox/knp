@@ -1,5 +1,5 @@
 #include "test.h"
-#include "match.h"
+#include "match.c"
 #include <stdio.h>
 
 Testificate tests[] = {
@@ -15,8 +15,8 @@ Testificate tests[] = {
     {"ba?b", "bb", true},   {"baa?", "ba", true},    {"baa?", "baa", true},
     {"a?bb", "bb", true},   {"a?bb", "abb", true},   {"ba?b", "baab", false},
     {"baaa?", "ba", false}, {"aba?", "ba", false},   {"/$", "$", true},
-    {"/*", "*", true},	    {"/+", "+", true},	     {"/?", "?", true},
-    {"/$$", "a$", true},    {"a/+*b", "ab", true},   {"a/++b", "a+++b", true},
+    {"/$$", "$", true},	    {"/*", "*", true},	     {"/+", "+", true},
+    {"/?", "?", true},	    {"a/+*b", "ab", true},   {"a/++b", "a+++b", true},
     {"/a", "a", false},	    {"/$$", "$a", false},
 };
 
@@ -40,7 +40,7 @@ int main(void)
 	int total_tests = LEN(tests);
 	for (int i = 0; i < total_tests; i++) {
 		Testificate cur_test = tests[i];
-		if (!test(cur_test.r, cur_test.t, cur_test.exp)) {
+		if (!test(cur_test.re, cur_test.text, cur_test.expected)) {
 			break;
 		}
 	}
