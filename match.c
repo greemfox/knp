@@ -23,8 +23,8 @@ bool matchhere(char *regex, char *text)
 	if (regex[0] == '$' && regex[1] == '\0') {
 		return *text == '\0';
 	}
-	if (regex[0] == '/' && regex[1] != '\0') {
-		return matchslash(regex + 1, text);
+	if (regex[0] == '\\' && regex[1] != '\0') {
+		return escapechar(regex + 1, text);
 	}
 	switch (regex[1]) {
 	case '*':
@@ -73,14 +73,14 @@ bool matchqmark(char c, char *regex, char *text)
 }
 
 /* Handles escapement. */
-bool matchslash(char *regex, char *text)
+bool escapechar(char *regex, char *text)
 {
 	switch (regex[0]) {
 	case '$':
 	case '*':
 	case '+':
 	case '?':
-	case '/':
+	case '\\':
 		return matchhere(regex, text);
 	}
 	return false;

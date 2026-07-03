@@ -14,10 +14,10 @@ Testificate tests[] = {
     {"a?b", "ab", true},    {"a?b", "b", true},	     {"ba?b", "bab", true},
     {"ba?b", "bb", true},   {"baa?", "ba", true},    {"baa?", "baa", true},
     {"a?bb", "bb", true},   {"a?bb", "abb", true},   {"ba?b", "baab", false},
-    {"baaa?", "ba", false}, {"aba?", "ba", false},   {"/$", "$", true},
-    {"/$$", "$", true},	    {"/*", "*", true},	     {"/+", "+", true},
-    {"/?", "?", true},	    {"a/+*b", "ab", true},   {"a/++b", "a+++b", true},
-    {"/a", "a", false},	    {"/$$", "$a", false},
+    {"baaa?", "ba", false}, {"aba?", "ba", false},   {"\\$", "$", true},
+    {"\\$$", "$", true},    {"\\*", "*", true},	     {"\\+", "+", true},
+    {"\\?", "?", true},	    {"a\\+*b", "ab", true},  {"a\\++b", "a+++b", true},
+    {"\\a", "a", false},    {"\\$$", "$a", false},
 };
 
 bool test(char *regex, char *text, int expected)
